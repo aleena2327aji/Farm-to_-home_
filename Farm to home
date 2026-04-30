@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm to Home — Fresh From the Field</title>
+<meta name="description" content="Fresh farm produce delivered to your home. Shop jams, honey, dairy, and more from local Indian farmers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,400;1,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-dark: #1B4332;
+  --green-mid: #2D6A4F;
+  --green-light: #52B788;
+  --green-pale: #D8F3DC;
+  --green-soft: #EEF7EF;
+  --gold: #E9A824;
+  --gold-light: #FFF3CD;
+  --orange: #E76F2A;
+  --cream: #FDFAF4;
+  --warm: #F5ECD7;
+  --earth: #5C3D1E;
+  --text: #1A1A1A;
+  --muted: #6B7280;
+  --white: #FFFFFF;
+  --red: #D62828;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  width: 14px; height: 14px;
+  background: var(--green-mid);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 2px solid var(--green-light);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s ease, width 0.2s, height 0.2s, opacity 0.2s;
+  opacity: 0.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 0 2.5rem;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(253,250,244,0.93);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(82,183,136,0.15);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px rgba(27,67,50,0.1); }
+
+.logo {
+  display: flex; align-items: center; gap: 0.6rem;
+  text-decoration: none; font-family: 'Fraunces', serif;
+  font-size: 1.5rem; font-weight: 900; color: var(--green-dark);
+}
+.logo-leaf { font-size: 1.6rem; animation: sway 3s ease-in-out infinite; }
+@keyframes sway {
+  0%,100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.logo span { color: var(--orange); }
+
+.nav-center {
+  display: flex; gap: 0.3rem; align-items: center;
+  background: var(--green-soft);
+  border-radius: 100px;
+  padding: 0.3rem;
+}
+.nav-link {
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  transition: all 0.2s;
+  border: none; background: transparent; cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+.nav-link:hover, .nav-link.active { background: var(--green-dark); color: var(--white); }
+
+.nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+.nav-icon-btn {
+  width: 42px; height: 42px;
+  background: transparent; border: 1.5px solid rgba(27,67,50,0.15);
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; font-size: 1.1rem; cursor: pointer;
+  transition: all 0.2s; position: relative;
+}
+.nav-icon-btn:hover { background: var(--green-pale); border-color: var(--green-light); }
+
+.badge {
+  position: absolute; top: -5px; right: -5px;
+  background: var(--orange); color: white;
+  width: 18px; height: 18px; border-radius: 50%;
+  font-size: 0.65rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif;
+}
+
+.btn-sell {
+  padding: 0.5rem 1.3rem;
+  background: var(--green-dark); color: white;
+  border: none; border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem; font-weight: 800; cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-sell:hover { background: var(--green-mid); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(27,67,50,0.25); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--green-dark);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 7rem 3rem 4rem;
+}
+
+/* Animated background circles */
+.hero-blob {
+  position: absolute; border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+.blob1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(82,183,136,0.2), transparent); top: -100px; right: -100px; animation-delay: 0s; }
+.blob2 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(233,168,36,0.15), transparent); bottom: -50px; left: -50px; animation-delay: 2s; }
+.blob3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(231,111,42,0.1), transparent); top: 40%; left: 40%; animation-delay: 4s; }
+@keyframes float {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* Diagonal stripe texture */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 40px,
+    rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px
+  );
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(82,183,136,0.2);
+  border: 1px solid rgba(82,183,136,0.4);
+  color: var(--green-light);
+  padding: 0.4rem 1rem; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  animation: fadeSlideUp 0.6s ease both;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.0;
+  margin-bottom: 1.5rem;
+  animation: fadeSlideUp 0.6s ease 0.1s both;
+}
+.hero h1 .line2 { color: var(--gold); display: block; }
+.hero h1 .line3 { color: var(--green-light); display: block; font-style: italic; font-weight: 300; font-size: 0.7em; }
+
+.hero-desc {
+  color: rgba(255,255,255,0.72);
+  font-size: 1.05rem; line-height: 1.75;
+  max-width: 480px; margin-bottom: 2.5rem;
+  animation: fadeSlideUp 0.6s ease 0.2s both;
+}
+
+.hero-btns {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeSlideUp 0.6s ease 0.3s both;
+}
+
+.btn-hero-main {
+  padding: 0.9rem 2rem;
+  background: var(--gold); color: var(--earth);
+  border: none; border-radius: 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem; font-weight: 800; cursor: pointer;
+  transition: all 0.25s; text-decoration: none; display: inline-block;
+  box-shadow: 0 4px 20px rgba(233,168,36,0.4);
+}
+.btn-hero-main:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(233,168,36,0.5); }
+
+.btn-hero-ghost {
+  padding: 0.9rem 2rem;
+  background: rgba(255,255,255,0.1); color: white;
+  border: 1.5px solid rgba(255,255,255,0.25); border-radius: 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: all 0.25s; text-decoration: none; display: inline-block;
+  backdrop-filter: blur(8px);
+}
+.btn-hero-ghost:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+
+/* Hero trust bar */
+.trust-bar {
+  display: flex; gap: 2rem; margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  animation: fadeSlideUp 0.6s ease 0.4s both;
+}
+.trust-item { display: flex; align-items: center; gap: 0.6rem; }
+.trust-icon { font-size: 1.2rem; }
+.trust-text { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.3; }
+.trust-text strong { color: white; display: block; }
+
+/* Hero Right — floating product cards */
+.hero-cards {
+  position: relative; height: 520px;
+  animation: fadeSlideUp 0.6s ease 0.2s both;
+}
+
+.floating-card {
+  position: absolute;
+  background: white;
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.floating-card:hover { transform: scale(1.05) rotate(0deg) !important; }
+
+.fc-main {
+  width: 200px; top: 30px; left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  animation: floatCard1 4s ease-in-out infinite;
+}
+.fc-left {
+  width: 160px; top: 200px; left: 0;
+  transform: rotate(5deg);
+  animation: floatCard2 5s ease-in-out infinite;
+}
+.fc-right {
+  width: 155px; top: 150px; right: 0;
+  transform: rotate(-4deg);
+  animation: floatCard3 4.5s ease-in-out infinite;
+}
+.fc-bottom {
+  width: 170px; bottom: 20px; left: 30%;
+  transform: rotate(2deg);
+  animation: floatCard1 5.5s ease-in-out infinite reverse;
+}
+
+@keyframes floatCard1 {
+  0%,100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
+  50% { transform: translateX(-50%) rotate(-3deg) translateY(-12px); }
+}
+@keyframes floatCard2 {
+  0%,100% { transform: rotate(5deg) translateY(0); }
+  50% { transform: rotate(5deg) translateY(-10px); }
+}
+@keyframes floatCard3 {
+  0%,100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(-4deg) translateY(-8px); }
+}
+
+.fc-emoji { font-size: 3rem; text-align: center; margin-bottom: 0.5rem; display: block; }
+.fc-name { font-weight: 800; font-size: 0.85rem; color: var(--green-dark); margin-bottom: 0.25rem; }
+.fc-farm { font-size: 0.72rem; color: var(--muted); }
+.fc-price { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--orange); margin-top: 0.4rem; }
+
+.fc-badge-new {
+  background: var(--gold); color: var(--earth);
+  font-size: 0.62rem; font-weight: 800; padding: 0.15rem 0.5rem;
+  border-radius: 100px; text-transform: uppercase; margin-top: 0.3rem; display: inline-block;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SEARCH BAR ── */
+.search-bar-section {
+  background: var(--green-dark);
+  padding: 0 3rem 3rem;
+}
+.search-inner {
+  max-width: 700px; margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  display: flex; gap: 0.75rem; align-items: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.search-inner input {
+  flex: 1; border: none; background: transparent;
+  font-family: 'Nunito', sans-serif; font-size: 1rem; color: var(--text);
+  outline: none;
+}
+.search-inner input::placeholder { color: #aaa; }
+.search-filters {
+  display: flex; gap: 0.4rem;
+}
+.sf-btn {
+  padding: 0.45rem 0.9rem;
+  background: var(--green-soft); color: var(--green-dark);
+  border: none; border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.sf-btn:hover { background: var(--green-pale); }
+.search-go {
+  padding: 0.7rem 1.4rem;
+  background: var(--green-dark); color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 800;
+  cursor: pointer; transition: all 0.2s;
+}
+.search-go:hover { background: var(--green-mid); }
+
+/* ── QUICK CATEGORIES ── */
+.quick-cats {
+  background: var(--green-soft);
+  padding: 2rem 3rem;
+  display: flex; gap: 1rem;
+  overflow-x: auto; scrollbar-width: none;
+  align-items: center;
+}
+.quick-cats::-webkit-scrollbar { display: none; }
+.qc-label { font-weight: 800; font-size: 0.85rem; color: var(--green-dark); white-space: nowrap; margin-right: 0.5rem; }
+.qc-pill {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: white; border-radius: 100px;
+  font-size: 0.88rem; font-weight: 700; color: var(--green-dark);
+  white-space: nowrap; cursor: pointer; border: 1.5px solid transparent;
+  transition: all 0.2s; text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.qc-pill:hover { border-color: var(--green-light); transform: translateY(-2px); }
+.qc-pill.active { background: var(--green-dark); color: white; }
+
+/* ── SECTION ── */
+.section { padding: 5rem 3rem; max-width: 1300px; margin: 0 auto; }
+.s-eyebrow { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 0.5rem; }
+.s-title { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; color: var(--green-dark); line-height: 1.15; }
+.s-title em { font-style: italic; color: var(--orange); }
+.section-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem; }
+.see-all {
+  padding: 0.5rem 1.2rem;
+  background: var(--green-pale); color: var(--green-dark);
+  border: none; border-radius: 100px;
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 800;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; text-decoration: none;
+}
+.see-all:hover { background: var(--green-dark); color: white; }
+
+/* ── PRODUCT GRID ── */
+.prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+
+.prod-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  transition: all 0.3s; cursor: pointer;
+  border: 1.5px solid transparent;
+}
+.prod-card:hover { transform: translateY(-6px); border-color: var(--green-pale); box-shadow: 0 16px 40px rgba(27,67,50,0.1); }
+
+.prod-img {
+  height: 180px; display: flex; align-items: center;
+  justify-content: center; font-size: 4.5rem;
+  position: relative;
+}
+
+.prod-tag {
+  position: absolute; top: 0.75rem; left: 0.75rem;
+  padding: 0.2rem 0.65rem; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+}
+.tag-organic { background: var(--green-pale); color: var(--green-dark); }
+.tag-new { background: var(--gold-light); color: var(--earth); }
+.tag-hot { background: #FFE8E0; color: #C1440E; }
+
+.wish-btn {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  width: 32px; height: 32px; background: white; border: none; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.wish-btn:hover { transform: scale(1.2); }
+
+.prod-body { padding: 1rem 1.1rem 1.2rem; }
+.prod-farmer { font-size: 0.73rem; font-weight: 700; color: var(--green-mid); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.3rem; }
+.prod-name { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700; color: var(--green-dark); margin-bottom: 0.4rem; line-height: 1.3; }
+.prod-stars { font-size: 0.8rem; color: var(--gold); margin-bottom: 0.75rem; }
+.prod-stars span { color: var(--muted); margin-left: 0.25rem; }
+
+.prod-footer { display: flex; align-items: center; justify-content: space-between; }
+.prod-price { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; color: var(--green-dark); }
+.prod-price sub { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+
+.add-btn {
+  width: 38px; height: 38px; background: var(--green-dark); color: white;
+  border: none; border-radius: 12px; font-size: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.add-btn:hover { background: var(--green-light); transform: rotate(90deg) scale(1.1); }
+
+/* img bg variants */
+.ib1 { background: linear-gradient(135deg,#FEF3C7,#FDE68A); }
+.ib2 { background: linear-gradient(135deg,#D1FAE5,#A7F3D0); }
+.ib3 { background: linear-gradient(135deg,#FFE4E6,#FECDD3); }
+.ib4 { background: linear-gradient(135deg,#EDE9FE,#DDD6FE); }
+.ib5 { background: linear-gradient(135deg,#FFF7ED,#FED7AA); }
+.ib6 { background: linear-gradient(135deg,#F0FDF4,#BBF7D0); }
+.ib7 { background: linear-gradient(135deg,#FEF9C3,#FEF08A); }
+.ib8 { background: linear-gradient(135deg,#FCE7F3,#FBCFE8); }
+
+/* ── WHY US STRIP ── */
+.why-strip {
+  background: var(--green-dark);
+  padding: 3rem;
+}
+.why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.why-card { text-align: center; }
+.why-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.why-title { font-weight: 800; color: white; font-size: 1rem; margin-bottom: 0.4rem; }
+.why-desc { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+/* ── FARMER SPOTLIGHT ── */
+.spotlight-wrap { background: var(--warm); }
+.spotlight-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem; }
+.spotlight-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+
+.spot-portrait-wrap { position: relative; }
+.spot-portrait {
+  width: 100%; aspect-ratio: 4/5;
+  background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+  border-radius: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7rem;
+  overflow: hidden; position: relative;
+}
+.spot-portrait::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+  background: linear-gradient(to top, rgba(27,67,50,0.6), transparent);
+}
+.spot-badge {
+  position: absolute; bottom: -16px; right: -16px;
+  background: var(--gold); border-radius: 20px;
+  padding: 0.75rem 1.2rem;
+  box-shadow: 0 8px 24px rgba(233,168,36,0.4);
+}
+.spot-badge-val { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; color: var(--earth); display: block; }
+.spot-badge-key { font-size: 0.72rem; font-weight: 700; color: var(--earth); opacity: 0.8; }
+
+.spot-content .s-eyebrow { margin-bottom: 0.5rem; }
+.spot-content h2 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; color: var(--green-dark); margin-bottom: 1rem; line-height: 1.2; }
+.spot-content p { color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+.spot-metrics { display: flex; gap: 2rem; margin-bottom: 2rem; }
+.sm-item { }
+.sm-val { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; color: var(--green-dark); display: block; }
+.sm-key { font-size: 0.78rem; color: var(--muted); }
+
+.btn-green {
+  padding: 0.8rem 1.8rem;
+  background: var(--green-dark); color: white;
+  border: none; border-radius: 14px;
+  font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800;
+  cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+}
+.btn-green:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+/* ── DASHBOARD ── */
+.dash-section { background: var(--cream); }
+.dash-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem; }
+.dash-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+
+.dash-left h2 { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--green-dark); margin-bottom: 1rem; }
+.dash-left p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+.feat-check { list-style: none; margin-bottom: 2rem; }
+.feat-check li {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--green-soft);
+  font-size: 0.92rem; color: var(--text);
+}
+.feat-check li:last-child { border-bottom: none; }
+.check-icon {
+  width: 24px; height: 24px; min-width: 24px;
+  background: var(--green-pale); color: var(--green-dark);
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 0.75rem; font-weight: 900;
+}
+
+/* Dashboard card */
+.db-card {
+  background: white; border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 40px rgba(27,67,50,0.08);
+  border: 1px solid var(--green-soft);
+}
+.db-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.db-title { font-weight: 800; font-size: 0.95rem; color: var(--green-dark); }
+.db-chip { background: var(--green-soft); color: var(--green-mid); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 100px; }
+
+.kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+.kpi { background: var(--green-soft); border-radius: 14px; padding: 0.9rem; text-align: center; }
+.kpi-val { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; color: var(--green-dark); display: block; }
+.kpi-lbl { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+
+/* chart */
+.chart-area { margin-bottom: 1.25rem; }
+.chart-lbl { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 0.6rem; }
+.bar-row { display: flex; align-items: flex-end; gap: 0.35rem; height: 70px; }
+.b-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.b-bar { width: 100%; border-radius: 6px 6px 0 0; transition: opacity 0.2s; }
+.b-bar:hover { opacity: 0.75; }
+.b-lbl { font-size: 0.62rem; color: var(--muted); }
+
+.inv-rows { }
+.inv-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 0; border-bottom: 1px solid var(--green-soft);
+}
+.inv-row:last-child { border-bottom: none; }
+.inv-ico { width: 36px; height: 36px; border-radius: 10px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.inv-info { flex: 1; }
+.inv-name { font-weight: 700; font-size: 0.85rem; color: var(--green-dark); }
+.inv-sub { font-size: 0.73rem; color: var(--muted); }
+.inv-right { text-align: right; }
+.inv-rev { font-family: 'Fraunces', serif; font-weight: 700; font-size: 0.95rem; color: var(--green-mid); }
+.inv-trend { font-size: 0.72rem; }
+.up { color: #16A34A; } .dn { color: var(--red); }
+
+/* ── HOW IT WORKS ── */
+.hiw-section { background: var(--green-dark); padding: 5rem 3rem; }
+.hiw-inner { max-width: 1200px; margin: 0 auto; }
+.hiw-head { text-align: center; margin-bottom: 3.5rem; }
+.hiw-head .s-eyebrow { color: var(--green-light); }
+.hiw-head h2 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; color: white; }
+
+.hiw-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; position: relative; }
+.hiw-grid::before {
+  content: '';
+  position: absolute; top: 40px; left: 10%; right: 10%; height: 2px;
+  background: linear-gradient(to right, var(--green-mid), var(--green-light), var(--green-mid));
+  border-radius: 2px;
+}
+.hiw-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 2rem 1.25rem; text-align: center;
+  backdrop-filter: blur(8px); transition: all 0.3s;
+}
+.hiw-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+.hiw-num {
+  width: 56px; height: 56px; background: var(--green-mid);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: white;
+  margin: 0 auto 1rem; position: relative; z-index: 1;
+  box-shadow: 0 0 0 4px rgba(82,183,136,0.3);
+}
+.hiw-icon { font-size: 1.8rem; margin-bottom: 0.75rem; display: block; }
+.hiw-title { font-weight: 800; color: white; font-size: 0.95rem; margin-bottom: 0.5rem; }
+.hiw-desc { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+/* ── REVIEWS ── */
+.reviews-section { background: var(--green-soft); padding: 5rem 3rem; }
+.reviews-inner { max-width: 1200px; margin: 0 auto; }
+.rev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.rev-card {
+  background: white; border-radius: 20px; padding: 1.5rem;
+  border: 1.5px solid transparent; transition: border-color 0.3s;
+}
+.rev-card:hover { border-color: var(--green-light); }
+.rev-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 0.75rem; }
+.rev-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; font-style: italic; }
+.rev-author { display: flex; align-items: center; gap: 0.75rem; }
+.rev-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.rev-name { font-weight: 800; font-size: 0.88rem; color: var(--green-dark); }
+.rev-loc { font-size: 0.75rem; color: var(--muted); }
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--orange);
+  padding: 5rem 3rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '🌾';
+  position: absolute; top: -1rem; left: 5%; font-size: 8rem; opacity: 0.08;
+}
+.cta-section::after {
+  content: '🌿';
+  position: absolute; bottom: -1rem; right: 5%; font-size: 8rem; opacity: 0.08;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+.cta-section h2 { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 1rem; }
+.cta-section p { color: rgba(255,255,255,0.85); font-size: 1rem; margin-bottom: 2rem; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-white { padding: 0.85rem 2rem; background: white; color: var(--orange); border: none; border-radius: 14px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+.btn-outline-white { padding: 0.85rem 2rem; background: transparent; color: white; border: 2px solid white; border-radius: 14px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.25s; }
+.btn-outline-white:hover { background: rgba(255,255,255,0.15); }
+
+/* ── NEWSLETTER ── */
+.nl-section { background: var(--green-dark); padding: 4rem 3rem; }
+.nl-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
+.nl-text h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; color: white; margin-bottom: 0.4rem; }
+.nl-text p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+.nl-form { display: flex; gap: 0.6rem; flex: 1; max-width: 440px; }
+.nl-input { flex: 1; padding: 0.8rem 1.2rem; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: white; outline: none; transition: border-color 0.2s; }
+.nl-input::placeholder { color: rgba(255,255,255,0.35); }
+.nl-input:focus { border-color: var(--green-light); }
+.btn-gold { padding: 0.8rem 1.4rem; background: var(--gold); color: var(--earth); border: none; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 800; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.btn-gold:hover { background: #d4920d; }
+
+/* ── FOOTER ── */
+footer { background: #0F2419; padding: 4rem 3rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-brand-logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: white; margin-bottom: 0.8rem; text-decoration: none; }
+.footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 260px; margin-bottom: 1.25rem; }
+.social-row { display: flex; gap: 0.6rem; }
+.s-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.06); border: none; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+.s-btn:hover { background: var(--green-mid); }
+.f-col h4 { font-size: 0.8rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+.f-col ul { list-style: none; }
+.f-col li { margin-bottom: 0.55rem; }
+.f-col a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.f-col a:hover { color: white; }
+.footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+/* ── CART SIDEBAR ── */
+.cart-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 600; backdrop-filter: blur(4px); }
+.cart-overlay.open { display: block; }
+.cart-sidebar { position: fixed; top: 0; right: -440px; width: 420px; height: 100vh; background: var(--cream); z-index: 700; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow: hidden; }
+.cart-sidebar.open { right: 0; }
+.cart-hd { padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--green-soft); background: var(--green-dark); }
+.cart-hd h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: white; }
+.cart-close { background: rgba(255,255,255,0.1); border: none; border-radius: 10px; padding: 0.4rem 0.8rem; color: white; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.cart-close:hover { background: rgba(255,255,255,0.2); }
+.cart-body { flex: 1; overflow-y: auto; padding: 1.25rem; }
+.cart-empty { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: 0.9rem; }
+.cart-empty span { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
+.ci { display: flex; gap: 0.9rem; padding: 0.9rem 0; border-bottom: 1px solid var(--green-soft); }
+.ci-img { width: 60px; height: 60px; border-radius: 12px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+.ci-info { flex: 1; }
+.ci-name { font-weight: 800; font-size: 0.88rem; color: var(--green-dark); margin-bottom: 0.15rem; }
+.ci-farm { font-size: 0.73rem; color: var(--muted); margin-bottom: 0.4rem; }
+.ci-ctl { display: flex; align-items: center; gap: 0.5rem; }
+.q-btn { width: 24px; height: 24px; background: var(--green-soft); border: none; border-radius: 6px; font-size: 1rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.q-btn:hover { background: var(--green-dark); color: white; }
+.q-num { font-weight: 800; font-size: 0.88rem; min-width: 20px; text-align: center; }
+.ci-price { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1rem; color: var(--green-dark); align-self: center; white-space: nowrap; }
+.cart-ft { padding: 1.25rem; border-top: 1px solid var(--green-soft); background: white; }
+.cart-tot { display: flex; justify-content: space-between; font-weight: 800; margin-bottom: 1rem; font-size: 0.95rem; }
+.cart-tot-val { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--green-dark); }
+.checkout-btn { width: 100%; padding: 0.9rem; background: var(--green-dark); color: white; border: none; border-radius: 14px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+.checkout-btn:hover { background: var(--green-mid); }
+
+/* ── MODAL ── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: 28px; width: 90%; max-width: 420px; padding: 2.5rem; position: relative; animation: scaleIn 0.3s ease; }
+@keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-x { position: absolute; top: 1.2rem; right: 1.2rem; background: var(--green-soft); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.modal-x:hover { background: var(--green-pale); }
+.modal h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; color: var(--green-dark); margin-bottom: 0.4rem; }
+.modal-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
+.modal-tabs { display: flex; background: var(--green-soft); border-radius: 12px; padding: 0.3rem; gap: 0.3rem; margin-bottom: 1.5rem; }
+.m-tab { flex: 1; padding: 0.5rem; border: none; background: transparent; border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 800; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+.m-tab.active { background: white; color: var(--green-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.fg { margin-bottom: 0.9rem; }
+.fg label { display: block; font-size: 0.8rem; font-weight: 800; color: var(--green-dark); margin-bottom: 0.35rem; }
+.fg input, .fg select { width: 100%; padding: 0.7rem 0.9rem; background: var(--green-soft); border: 1.5px solid transparent; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; transition: border-color 0.2s; }
+.fg input:focus { border-color: var(--green-light); background: white; }
+.modal-btn { width: 100%; padding: 0.85rem; background: var(--green-dark); color: white; border: none; border-radius: 14px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.modal-btn:hover { background: var(--green-mid); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--green-dark); color: white; padding: 0.8rem 1.5rem; border-radius: 100px; font-size: 0.9rem; font-weight: 700; z-index: 9999; opacity: 0; transition: all 0.35s ease; white-space: nowrap; box-shadow: 0 8px 30px rgba(27,67,50,0.25); }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-cards { display: none; }
+  .prod-grid { grid-template-columns: repeat(2,1fr); }
+  .why-grid { grid-template-columns: repeat(2,1fr); }
+  .spotlight-grid { grid-template-columns: 1fr; }
+  .dash-grid { grid-template-columns: 1fr; }
+  .hiw-grid { grid-template-columns: repeat(2,1fr); }
+  .hiw-grid::before { display: none; }
+  .rev-grid { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nl-inner { flex-direction: column; align-items: flex-start; }
+  .section { padding: 4rem 2rem; }
+}
+@media(max-width:640px) {
+  .nav-center { display: none; }
+  .prod-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .hiw-grid { grid-template-columns: 1fr; }
+  .rev-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .trust-bar { flex-wrap: wrap; gap: 1.2rem; }
+  .spot-metrics { flex-wrap: wrap; gap: 1.2rem; }
+  nav { padding: 0 1.2rem; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .cart-sidebar { width: 95%; }
+  .search-filters { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+  <a href="#" class="logo">
+    <span class="logo-leaf">🌿</span>
+    Farm to <span>Home</span>
+  </a>
+
+  <div class="nav-center">
+    <button class="nav-link active" onclick="scrollTo('hero')">Home</button>
+    <button class="nav-link" onclick="scrollTo('products')">Shop</button>
+    <button class="nav-link" onclick="scrollTo('farmers')">Farmers</button>
+    <button class="nav-link" onclick="scrollTo('dashboard')">Sell</button>
+  </div>
+
+  <div class="nav-right">
+    <button class="nav-icon-btn" title="Search" onclick="document.querySelector('.search-inner input').focus()">🔍</button>
+    <button class="nav-icon-btn" title="Wishlist">🤍</button>
+    <button class="nav-icon-btn" onclick="openCart()" title="Cart">
+      🛒
+      <span class="badge" id="cartBadge">0</span>
+    </button>
+    <button class="nav-link" onclick="openModal('login')">Log In</button>
+    <button class="btn-sell" onclick="openModal('farmer')">+ Start Selling</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+
+  <div class="hero-inner">
+    <!-- Left Content -->
+    <div>
+      <div class="hero-tag">🌾 100% Natural · Straight From Farms</div>
+      <h1>
+        Fresh from
+        <span class="line2">Indian Farms</span>
+        <span class="line3">delivered to your doorstep</span>
+      </h1>
+      <p class="hero-desc">
+        Shop artisan honey, jams, dairy, baked goods and more — sourced directly from small farmers and entrepreneurs across India. No middlemen. No chemicals. Just honest, fresh food.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-hero-main">🛒 Shop Now</a>
+        <button class="btn-hero-ghost" onclick="openModal('farmer')">🌾 Sell Your Products</button>
+      </div>
+      <div class="trust-bar">
+        <div class="trust-item">
+          <span class="trust-icon">✅</span>
+          <div class="trust-text"><strong>340+ Farmers</strong>across India</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🚚</span>
+          <div class="trust-text"><strong>Free Delivery</strong>above ₹499</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🔄</span>
+          <div class="trust-text"><strong>Easy Returns</strong>7-day policy</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🔒</span>
+          <div class="trust-text"><strong>Secure Pay</strong>UPI · Cards</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right floating cards -->
+    <div class="hero-cards">
+      <div class="floating-card fc-main" onclick="addToCart('Raw Forest Honey','🍯',399,'Nilgiri Bee Farm')">
+        <span class="fc-emoji">🍯</span>
+        <div class="fc-name">Raw Forest Honey</div>
+        <div class="fc-farm">Nilgiri Bee Farm</div>
+        <div class="fc-price">₹399 <span style="font-size:0.7rem;color:#999">/500g</span></div>
+        <span class="fc-badge-new">Bestseller</span>
+      </div>
+      <div class="floating-card fc-left" onclick="addToCart('Mixed Berry Jam','🫐',210,'Blue Hills Preserves')">
+        <span class="fc-emoji">🫐</span>
+        <div class="fc-name">Mixed Berry Jam</div>
+        <div class="fc-farm">Blue Hills</div>
+        <div class="fc-price">₹210</div>
+      </div>
+      <div class="floating-card fc-right" onclick="addToCart('Goat Milk Soap','🧴',120,'Petal & Root')">
+        <span class="fc-emoji">🧴</span>
+        <div class="fc-name">Goat Milk Soap</div>
+        <div class="fc-farm">Petal & Root</div>
+        <div class="fc-price">₹120</div>
+      </div>
+      <div class="floating-card fc-bottom" onclick="addToCart('Sourdough Loaf','🍞',180,'Sunrise Bakehouse')">
+        <span class="fc-emoji">🍞</span>
+        <div class="fc-name">Sourdough Loaf</div>
+        <div class="fc-farm">Sunrise Bakehouse</div>
+        <div class="fc-price">₹180</div>
+        <span class="fc-badge-new">New</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SEARCH ── -->
+<div class="search-bar-section">
+  <div class="search-inner">
+    <span>🔍</span>
+    <input type="text" placeholder="Search honey, cheese, jam, soaps, oils...">
+    <div class="search-filters">
+      <button class="sf-btn">🌿 Organic</button>
+      <button class="sf-btn">📍 Local</button>
+      <button class="sf-btn">⭐ Top Rated</button>
+    </div>
+    <button class="search-go">Search</button>
+  </div>
+</div>
+
+<!-- ── QUICK CATEGORIES ── -->
+<div class="quick-cats" id="categories">
+  <span class="qc-label">Browse:</span>
+  <a href="#" class="qc-pill active" onclick="filterProd(this,'All')">🌾 All</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Honey')">🍯 Honey & Syrups</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Jam')">🫙 Jams & Preserves</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Dairy')">🥛 Dairy & Cheese</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Bakery')">🍞 Baked Goods</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Oil')">🫒 Oils</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Soap')">🧴 Soaps</a>
+  <a href="#" class="qc-pill" onclick="filterProd(this,'Vegetable')">🥦 Vegetables</a>
+</div>
+
+<!-- ── PRODUCTS ── -->
+<div style="background:white" id="products">
+  <div class="section">
+    <div class="section-row">
+      <div>
+        <div class="s-eyebrow">Fresh Listings</div>
+        <div class="s-title">Featured <em>Products</em></div>
+      </div>
+      <a href="#" class="see-all">View All →</a>
+    </div>
+
+    <div class="prod-grid" id="prodGrid">
+
+      <div class="prod-card" data-cat="Honey">
+        <div class="prod-img ib1">
+          <span class="prod-tag tag-organic">🌿 Organic</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🍯</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Nilgiri Bee Farm, Tamil Nadu</div>
+          <div class="prod-name">Raw Forest Honey — 500g</div>
+          <div class="prod-stars">★★★★★ <span>(214)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹399 <sub>/jar</sub></div>
+            <button class="add-btn" onclick="addToCart('Raw Forest Honey','🍯',399,'Nilgiri Bee Farm')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Jam">
+        <div class="prod-img ib2">
+          <span class="prod-tag tag-new">✨ New</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🫐</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Blue Hills Preserves, Ooty</div>
+          <div class="prod-name">Mixed Berry Jam — 250g</div>
+          <div class="prod-stars">★★★★☆ <span>(87)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹210 <sub>/jar</sub></div>
+            <button class="add-btn" onclick="addToCart('Mixed Berry Jam','🫐',210,'Blue Hills Preserves')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Dairy">
+        <div class="prod-img ib3">
+          <span class="prod-tag tag-hot">🔥 Top Rated</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🧀</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Valley Gate Creamery, Punjab</div>
+          <div class="prod-name">Aged Cheddar Block — 250g</div>
+          <div class="prod-stars">★★★★★ <span>(342)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹520 <sub>/piece</sub></div>
+            <button class="add-btn" onclick="addToCart('Aged Cheddar','🧀',520,'Valley Gate Creamery')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Oil">
+        <div class="prod-img ib4">
+          <span class="prod-tag tag-organic">🌿 Cold-Pressed</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🫒</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Green Thumb Farms, Kerala</div>
+          <div class="prod-name">Virgin Coconut Oil — 500ml</div>
+          <div class="prod-stars">★★★★★ <span>(178)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹350 <sub>/bottle</sub></div>
+            <button class="add-btn" onclick="addToCart('Virgin Coconut Oil','🫒',350,'Green Thumb Farms')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Bakery">
+        <div class="prod-img ib5">
+          <span class="prod-tag tag-hot">🔥 Bestseller</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🍞</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Sunrise Bakehouse, Pune</div>
+          <div class="prod-name">Heritage Sourdough Loaf</div>
+          <div class="prod-stars">★★★★★ <span>(445)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹180 <sub>/loaf</sub></div>
+            <button class="add-btn" onclick="addToCart('Sourdough Loaf','🍞',180,'Sunrise Bakehouse')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Jam">
+        <div class="prod-img ib6">
+          <span class="prod-tag tag-new">✨ New</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🍓</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Sunrise Berry Farm, Himachal</div>
+          <div class="prod-name">Strawberry Vanilla Preserve</div>
+          <div class="prod-stars">★★★★★ <span>(196)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹240 <sub>/jar</sub></div>
+            <button class="add-btn" onclick="addToCart('Strawberry Preserve','🍓',240,'Sunrise Berry Farm')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Soap">
+        <div class="prod-img ib7">
+          <span class="prod-tag tag-organic">🌿 Natural</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🧴</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Petal & Root Apothecary, Goa</div>
+          <div class="prod-name">Lavender Goat Milk Soap</div>
+          <div class="prod-stars">★★★★★ <span>(231)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹120 <sub>/bar</sub></div>
+            <button class="add-btn" onclick="addToCart('Goat Milk Soap','🧴',120,'Petal & Root')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="Vegetable">
+        <div class="prod-img ib8">
+          <span class="prod-tag tag-organic">🌿 Farm-Fresh</span>
+          <button class="wish-btn" onclick="toggleWish(this,event)">🤍</button>
+          <span>🥦</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-farmer">Green Roots Farm, Bengaluru</div>
+          <div class="prod-name">Organic Veggie Box — 2kg</div>
+          <div class="prod-stars">★★★★☆ <span>(119)</span></div>
+          <div class="prod-footer">
+            <div class="prod-price">₹299 <sub>/box</sub></div>
+            <button class="add-btn" onclick="addToCart('Organic Veggie Box','🥦',299,'Green Roots Farm')">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── WHY US ── -->
+<div class="why-strip">
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="why-icon">🌿</span>
+      <div class="why-title">100% Natural</div>
+      <div class="why-desc">No preservatives, no chemicals. Every product is verified fresh from the farm.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🚚</span>
+      <div class="why-title">Fast Delivery</div>
+      <div class="why-desc">Free delivery across India on orders above ₹499. 2–5 day delivery.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">👨‍🌾</span>
+      <div class="why-title">Direct from Farmers</div>
+      <div class="why-desc">We cut the middlemen. Your money goes directly to the farmer.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🔒</span>
+      <div class="why-title">Secure Payments</div>
+      <div class="why-desc">Pay with UPI, cards, wallets or COD. 100% safe and encrypted.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FARMER SPOTLIGHT ── -->
+<div class="spotlight-wrap" id="farmers">
+  <div class="spotlight-inner">
+    <div class="s-eyebrow">Our Farmers</div>
+    <div class="s-title" style="margin-bottom:3rem">Meet the <em>People Behind</em> Your Food</div>
+    <div class="spotlight-grid">
+      <div class="spot-portrait-wrap">
+        <div class="spot-portrait"><span>👩‍🌾</span></div>
+        <div class="spot-badge">
+          <span class="spot-badge-val">⭐ 4.9</span>
+          <span class="spot-badge-key">Top Farmer</span>
+        </div>
+      </div>
+      <div class="spot-content">
+        <div class="s-eyebrow">🌟 Farmer Spotlight</div>
+        <h2>Lakshmi Devi<br>of Nilgiri Bee Farm, TN</h2>
+        <p>Lakshmi has been keeping bees in the Nilgiri hills for over 14 years. Her family's 60-acre farm produces some of the most sought-after forest honey in India — completely chemical-free and harvested with traditional methods passed down through generations.</p>
+        <div class="spot-metrics">
+          <div class="sm-item"><span class="sm-val">14</span><span class="sm-key">Years Farming</span></div>
+          <div class="sm-item"><span class="sm-val">22</span><span class="sm-key">Products</span></div>
+          <div class="sm-item"><span class="sm-val">3,200+</span><span class="sm-key">Orders</span></div>
+          <div class="sm-item"><span class="sm-val">₹8.2L</span><span class="sm-key">Revenue</span></div>
+        </div>
+        <a href="#" class="btn-green">Visit Lakshmi's Store →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div class="dash-section" id="dashboard">
+  <div class="dash-inner">
+    <div class="section-row">
+      <div>
+        <div class="s-eyebrow">For Sellers & Farmers</div>
+        <div class="s-title">Your <em>Seller Dashboard</em></div>
+      </div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-left">
+        <p>Everything you need to manage and grow your farm business in one simple place.</p>
+        <ul class="feat-check">
+          <li><span class="check-icon">✓</span> Upload products with photos in minutes</li>
+          <li><span class="check-icon">✓</span> Real-time sales & revenue tracking</li>
+          <li><span class="check-icon">✓</span> Inventory alerts when stock is low</li>
+          <li><span class="check-icon">✓</span> Customer reviews & engagement</li>
+          <li><span class="check-icon">✓</span> Order management & shipping</li>
+          <li><span class="check-icon">✓</span> Export reports (CSV)</li>
+          <li><span class="check-icon">✓</span> Free to start — no upfront cost</li>
+        </ul>
+        <button class="btn-green" onclick="openModal('farmer')">🌾 Start Selling Free</button>
+      </div>
+      <div class="db-card">
+        <div class="db-top">
+          <div class="db-title">📊 Dashboard — Lakshmi's Honey Farm</div>
+          <div class="db-chip">Last 30 days</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><span class="kpi-val">₹82,400</span><span class="kpi-lbl">Revenue</span></div>
+          <div class="kpi"><span class="kpi-val">342</span><span class="kpi-lbl">Orders</span></div>
+          <div class="kpi"><span class="kpi-val">₹241</span><span class="kpi-lbl">Avg. Order</span></div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-lbl">Weekly Sales (₹)</div>
+          <div class="bar-row">
+            <div class="b-col"><div class="b-bar" style="height:45%;background:var(--green-pale)"></div><div class="b-lbl">W1</div></div>
+            <div class="b-col"><div class="b-bar" style="height:60%;background:var(--green-pale)"></div><div class="b-lbl">W2</div></div>
+            <div class="b-col"><div class="b-bar" style="height:52%;background:var(--green-pale)"></div><div class="b-lbl">W3</div></div>
+            <div class="b-col"><div class="b-bar" style="height:78%;background:var(--green-mid)"></div><div class="b-lbl">W4</div></div>
+            <div class="b-col"><div class="b-bar" style="height:85%;background:var(--green-mid)"></div><div class="b-lbl">W5</div></div>
+            <div class="b-col"><div class="b-bar" style="height:92%;background:var(--green-dark)"></div><div class="b-lbl">W6</div></div>
+          </div>
+        </div>
+        <div class="inv-rows">
+          <div class="inv-row">
+            <div class="inv-ico">🍯</div>
+            <div class="inv-info">
+              <div class="inv-name">Raw Forest Honey</div>
+              <div class="inv-sub">128 sold · 14 in stock ⚠️</div>
+            </div>
+            <div class="inv-right">
+              <div class="inv-rev">₹51,072</div>
+              <div class="inv-trend up">↑ 28%</div>
+            </div>
+          </div>
+          <div class="inv-row">
+            <div class="inv-ico">🍯</div>
+            <div class="inv-info">
+              <div class="inv-name">Clover Honey Mini</div>
+              <div class="inv-sub">96 sold · 40 in stock</div>
+            </div>
+            <div class="inv-right">
+              <div class="inv-rev">₹19,200</div>
+              <div class="inv-trend up">↑ 12%</div>
+            </div>
+          </div>
+          <div class="inv-row">
+            <div class="inv-ico">🌸</div>
+            <div class="inv-info">
+              <div class="inv-name">Honeycomb Gift Box</div>
+              <div class="inv-sub">34 sold · 8 in stock</div>
+            </div>
+            <div class="inv-right">
+              <div class="inv-rev">₹12,128</div>
+              <div class="inv-trend dn">↓ 4%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ── -->
+<div class="hiw-section">
+  <div class="hiw-inner">
+    <div class="hiw-head">
+      <div class="s-eyebrow">Simple Steps</div>
+      <h2>How Farm to Home Works</h2>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-num">1</div>
+        <span class="hiw-icon">👤</span>
+        <div class="hiw-title">Create Account</div>
+        <div class="hiw-desc">Sign up as a buyer or seller in under 2 minutes using your phone number or email.</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">2</div>
+        <span class="hiw-icon">🔍</span>
+        <div class="hiw-title">Browse & Choose</div>
+        <div class="hiw-desc">Explore hundreds of farm-fresh products. Filter by category, price, or location.</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">3</div>
+        <span class="hiw-icon">💳</span>
+        <div class="hiw-title">Pay Securely</div>
+        <div class="hiw-desc">Pay with UPI, debit/credit card, wallets, or Cash on Delivery. 100% secure.</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-num">4</div>
+        <span class="hiw-icon">📦</span>
+        <div class="hiw-title">Get it Delivered</div>
+        <div class="hiw-desc">Your fresh farm products arrive at your door in 2–5 days, packed with care.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REVIEWS ── -->
+<div class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-row">
+      <div>
+        <div class="s-eyebrow">Happy Customers</div>
+        <div class="s-title">What People <em>Love</em></div>
+      </div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"The forest honey from Nilgiri is absolutely amazing! It's so different from what you get in supermarkets. Ordered twice already and will keep ordering."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">👩</div>
+          <div><div class="rev-name">Priya Sharma</div><div class="rev-loc">📍 Bengaluru</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"As a small jam maker from Himachal, Farm to Home gave me customers from all over India. My revenue doubled in just 3 months. The dashboard is very easy to use!"</p>
+        <div class="rev-author">
+          <div class="rev-avatar">👨‍🌾</div>
+          <div><div class="rev-name">Ramesh Kumar</div><div class="rev-loc">📍 Shimla, HP</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"Delivery was fast and the packaging was so careful. The goat milk soap is the best I've used. Love that I can see exactly which farm my product comes from!"</p>
+        <div class="rev-author">
+          <div class="rev-avatar">🧑</div>
+          <div><div class="rev-name">Ananya Menon</div><div class="rev-loc">📍 Kochi, Kerala</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2>Join India's Freshest Farm Marketplace</h2>
+    <p>Whether you're a farmer, home-baker, or conscious shopper — Farm to Home is for you.</p>
+    <div class="cta-btns">
+      <button class="btn-white" onclick="openModal('customer')">🛒 Start Shopping</button>
+      <button class="btn-outline-white" onclick="openModal('farmer')">🌾 Start Selling</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── NEWSLETTER ── -->
+<div class="nl-section">
+  <div class="nl-inner">
+    <div class="nl-text">
+      <h3>🌾 Fresh Updates to Your Inbox</h3>
+      <p>Seasonal products, new farmers, recipe ideas, and exclusive offers.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="yourname@email.com">
+      <button class="btn-gold" onclick="showToast('✅ You are subscribed!')">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="footer-brand-logo" href="#">🌿 Farm to <span style="color:var(--orange)">Home</span></a>
+      <p>Connecting Indian farmers and entrepreneurs with customers who value fresh, natural, and honest food products.</p>
+      <div class="social-row">
+        <button class="s-btn">📘</button>
+        <button class="s-btn">📸</button>
+        <button class="s-btn">▶️</button>
+        <button class="s-btn">🐦</button>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">All Products</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Organic Range</a></li>
+        <li><a href="#">Gift Hampers</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Sellers</h4>
+      <ul>
+        <li><a href="#">Start Selling</a></li>
+        <li><a href="#">Seller Dashboard</a></li>
+        <li><a href="#">Success Stories</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Seller Support</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Returns Policy</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Farm to Home. All rights reserved.</span>
+    <span>Made with 🌿 for Indian Farmers</span>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hd">
+    <h3>🛒 Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()">✕ Close</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty"><span>🛒</span>Your cart is empty.<br><br>Browse our market to find something fresh!</div>
+  </div>
+  <div class="cart-ft" id="cartFt" style="display:none">
+    <div class="cart-tot"><span>Total</span><span class="cart-tot-val" id="cartTotal">₹0</span></div>
+    <button class="checkout-btn" onclick="handleCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="closeModalOut(event)">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <h3 id="mTitle">Welcome Back</h3>
+    <p class="modal-sub" id="mSub">Log in to your Farm to Home account</p>
+    <div class="modal-tabs">
+      <button class="m-tab active" onclick="switchTab(this,'login')">Log In</button>
+      <button class="m-tab" onclick="switchTab(this,'customer')">Customer</button>
+      <button class="m-tab" onclick="switchTab(this,'farmer')">Farmer/Seller</button>
+    </div>
+    <div id="fLogin">
+      <div class="fg"><label>Mobile / Email</label><input type="text" placeholder="Enter your mobile or email"></div>
+      <div class="fg"><label>Password</label><input type="password" placeholder="••••••••"></div>
+      <button class="modal-btn" onclick="handleAuth()">Log In</button>
+    </div>
+    <div id="fCustomer" style="display:none">
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Priya Sharma"></div>
+      <div class="fg"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="priya@email.com"></div>
+      <div class="fg"><label>Password</label><input type="password" placeholder="Create password"></div>
+      <button class="modal-btn" onclick="handleAuth()">Create Account</button>
+    </div>
+    <div id="fFarmer" style="display:none">
+      <div class="fg"><label>Your Name</label><input type="text" placeholder="Lakshmi Devi"></div>
+      <div class="fg"><label>Farm / Brand Name</label><input type="text" placeholder="Nilgiri Bee Farm"></div>
+      <div class="fg"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+      <div class="fg"><label>State</label><select><option>Tamil Nadu</option><option>Kerala</option><option>Punjab</option><option>Himachal Pradesh</option><option>Karnataka</option><option>Maharashtra</option><option>Goa</option><option>Other</option></select></div>
+      <div class="fg"><label>Product Category</label><select><option>Honey & Syrups</option><option>Jams & Preserves</option><option>Dairy & Cheese</option><option>Baked Goods</option><option>Oils & Condiments</option><option>Soaps & Wellness</option><option>Vegetables & Fruits</option><option>Other</option></select></div>
+      <button class="modal-btn" onclick="handleAuth()">Start Selling Free 🌾</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur'), ring = document.getElementById('ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('button,a,[onclick]').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width='20px'; cur.style.height='20px'; cur.style.background='var(--orange)'; ring.style.width='50px'; ring.style.height='50px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width='14px'; cur.style.height='14px'; cur.style.background='var(--green-mid)'; ring.style.width='36px'; ring.style.height='36px'; });
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', scrollY > 30);
+});
+
+// ── SMOOTH SCROLL ──
+function scrollTo(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+
+// ── CART ──
+let cart = [];
+
+function addToCart(name, emoji, price, farm) {
+  const ex = cart.find(i => i.name === name);
+  if(ex) ex.qty++;
+  else cart.push({name, emoji, price, farm, qty: 1});
+  renderCart();
+  showToast(emoji + ' ' + name + ' added to cart!');
+}
+
+function changeQty(i, d) {
+  cart[i].qty += d;
+  if(cart[i].qty <= 0) cart.splice(i, 1);
+  renderCart();
+}
+
+function renderCart() {
+  const bd = document.getElementById('cartBody');
+  const ft = document.getElementById('cartFt');
+  const count = cart.reduce((s,i) => s+i.qty, 0);
+  document.getElementById('cartBadge').textContent = count;
+  if(!cart.length) {
+    bd.innerHTML = '<div class="cart-empty"><span>🛒</span>Your cart is empty.<br><br>Browse our market to find something fresh!</div>';
+    ft.style.display = 'none'; return;
+  }
+  ft.style.display = 'block';
+  let total = 0;
+  bd.innerHTML = cart.map((item,i) => {
+    total += item.price * item.qty;
+    return `<div class="ci">
+      <div class="ci-img">${item.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-farm">${item.farm}</div>
+        <div class="ci-ctl">
+          <button class="q-btn" onclick="changeQty(${i},-1)">−</button>
+          <span class="q-num">${item.qty}</span>
+          <button class="q-btn" onclick="changeQty(${i},1)">+</button>
+        </div>
+      </div>
+      <div class="ci-price">₹${(item.price*item.qty).toLocaleString('en-IN')}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+}
+
+function openCart() { document.getElementById('cartSidebar').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); }
+function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); }
+function handleCheckout() { closeCart(); showToast('✅ Redirecting to secure checkout...'); }
+
+// ── WISH ──
+function toggleWish(btn, e) {
+  e.stopPropagation();
+  const on = btn.textContent === '❤️';
+  btn.textContent = on ? '🤍' : '❤️';
+  showToast(on ? '🤍 Removed from wishlist' : '❤️ Added to wishlist!');
+}
+
+// ── FILTER ──
+function filterProd(pill, cat) {
+  document.querySelectorAll('.qc-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  document.querySelectorAll('.prod-card').forEach(c => {
+    c.style.display = (cat === 'All' || c.dataset.cat === cat) ? 'block' : 'none';
+  });
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+  return false;
+}
+
+// ── MODAL ──
+function openModal(type) {
+  document.getElementById('authModal').classList.add('open');
+  if(type==='login') switchTab(document.querySelector('.m-tab'), 'login');
+  else if(type==='customer' || type==='signup') switchTab(document.querySelectorAll('.m-tab')[1], 'customer');
+  else switchTab(document.querySelectorAll('.m-tab')[2], 'farmer');
+}
+function closeModal() { document.getElementById('authModal').classList.remove('open'); }
+function closeModalOut(e) { if(e.target === document.getElementById('authModal')) closeModal(); }
+
+function switchTab(btn, type) {
+  document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('fLogin').style.display = type==='login'?'block':'none';
+  document.getElementById('fCustomer').style.display = type==='customer'?'block':'none';
+  document.getElementById('fFarmer').style.display = type==='farmer'?'block':'none';
+  const map = {
+    login: ['Welcome Back 👋','Log in to your Farm to Home account'],
+    customer: ['Join Farm to Home 🛒','Create your buyer account'],
+    farmer: ['Start Selling 🌾','List your farm products for free']
+  };
+  document.getElementById('mTitle').textContent = map[type][0];
+  document.getElementById('mSub').textContent = map[type][1];
+}
+
+function handleAuth() { closeModal(); showToast('✅ Welcome to Farm to Home!'); }
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
